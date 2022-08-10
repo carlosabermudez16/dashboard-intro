@@ -1,0 +1,13 @@
+flask == 2.1.2
+gunicorn == 20.1.0
+email_validator == 1.2.1
+python-dotenv == 0.20.0
+mysql-connector-python == 8.0.29
+Flask-WTF == 1.0.1
+WTForms == 3.0.1
+Flask-SQLAlchemy == 2.5.1
+csrf == 0.1b1
+Flask-Mail == 0.9.1
+psycopg2-binary == 2.9.3
+flask-login == 0.6.1
+flask-migrate == 3.1.0

@@ -1,0 +1,9 @@
+from app import create_app
+import os
+#settings_module = os.getenv('APP_PROD')
+settings_module = os.getenv('APP_DEV')
+
+app = create_app(config_class = settings_module)
+    
+    
+

@@ -1,0 +1,55 @@
+from flask import render_template
+from app.controllers.helper import date_format
+from app.controllers.queries.querys import comments
+
+from app.blueprints.publication import blue_comments
+
+import jwt
+from jwt import exceptions
+from functools import wraps
+from flask import jsonify, request
+#from flask_login import current_user
+from flask import current_app
+from app.controllers.queries.querys import get_public_id #,get_token 
+
+#aun no se está en funcionamiento
+def token_required(f):
+    @wraps(f)
+    def decorator(*args, **kwargs):
+        
+        try:
+            cookie = request.headers['Cookie']
+            token = cookie[6:158] if 'token' in cookie else None
+            #username = current_user.username
+            #print(f'username: {username}')
+        except:
+            token = None
+            #username = None
+            
+        #token = get_token.get_token(username=username)
+        #print(token, type(token))
+        
+        if not token:
+            return jsonify({'message': 'No estás autorizado'})
+
+        try:
+            data = jwt.decode(token, key= current_app.config["SECRET_KEY"],
+                       algorithms=["HS256"])
+            usuario = get_public_id.get_public_id(data=data['tokens_jwt'])
+            print(usuario)
+        except exceptions.DecodeError as e:
+            return jsonify({'message': f'el token es invalido {e}'})
+
+        return f(usuario,*args, **kwargs)
+        
+    return decorator
+
+
+@blue_comments.route('/publication',methods = ['GET'])
+@token_required
+def publication(usuario):
+    return render_template('publication.html', comments = comments.get_comment(), date_format = date_format)
+
+
+
+

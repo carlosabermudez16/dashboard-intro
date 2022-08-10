@@ -14,13 +14,6 @@ class Config(object):
     SECRET_KEY = os.getenv("SECRET_KEY") # debe ir en el archivo env
     SECURITY_PASSWORD_SALT = os.getenv("SECURITY_PASSWORD_SALT")
     
-    host = os.getenv("HOST")
-    database = os.getenv("DATABASE") 
-    user = os.getenv("USER")
-    password = os.getenv("PASSWORD")
-    port = os.getenv("PORT")
-    driver = os.getenv("DRIVER")
-    
     mail_port = int(os.environ.get('MAIL_PORT'))
     MAIL_SERVER   = os.getenv('MAIL_SERVER')
     MAIL_PORT     = mail_port or 465
@@ -45,13 +38,26 @@ class Config(object):
 
 class DevelopmentConfig(Config):
     valor = 0
-    SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:123456@localhost:5432/flask_CF'
+    host = os.getenv("HOST2")
+    database = os.getenv("DATABASE2") 
+    user = os.getenv("USER2")
+    password = os.getenv("PASSWORD2")
+    port = os.getenv("PORT2")
+    driver = os.getenv("DRIVER2")
+    SQLALCHEMY_DATABASE_URI = f'{driver}://{user}:{password}@{host}/{database}'
+    #SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:123456@localhost:5432/flask_CF'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = False
     
 class ProductionConfig(Config):
     valor = 1
-    SQLALCHEMY_DATABASE_URI = f'{Config.driver}://{Config.user}:{Config.password}@{Config.host}/{Config.database}'
+    host = os.getenv("HOST")
+    database = os.getenv("DATABASE") 
+    user = os.getenv("USER")
+    password = os.getenv("PASSWORD")
+    port = os.getenv("PORT")
+    driver = os.getenv("DRIVER")
+    SQLALCHEMY_DATABASE_URI = f'{driver}://{user}:{password}@{host}/{database}'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     DEBUG = False    

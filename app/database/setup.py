@@ -1,45 +1,23 @@
 from sqlalchemy import create_engine
 
 
-def ruta_databse(entrypoint):
-    driver = entrypoint.driver
-    host= entrypoint.host
-    user= entrypoint.user
-    password= entrypoint.password
-    database= entrypoint.database
-    puerto = entrypoint.port
-    
-    ruta = f'{driver}://{user}:{password}@{host}:{puerto}/{database}'
-    return ruta
 
-def create_tables(app,db):
-    
-    valor = app.config['SQLALCHEMY_DATABASE_URI']
-    print(valor, len(valor))
+def create_tables(app, db, config_class):
     
     try:
         with app.app_context():  # me permite sicronizar la base de datos con la aplicación
-            if len(valor) == 59:
-                from config.config import ProductionConfig
-                ruta = ruta_databse(entrypoint=ProductionConfig)
-                print(ruta)
-                engine = create_engine(ruta)
+            if config_class == 'prod':
+                engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
                 
                 name = 'Mysql'
-                #print(name)
-            elif len(valor) == 52:
-                from config.config import DevelopmentConfig
-                ruta = ruta_databse(entrypoint=DevelopmentConfig)
-                print(ruta)
-                engine = create_engine(ruta)
+                print(name)
+            elif config_class == 'dev':
+                engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
                 
                 name = 'Postgresql'
-                #print(name)
-            elif len(valor) == 155:
-                from config.config import CloudDev
-                ruta = ruta_databse(entrypoint=CloudDev)
-                #print(ruta)
-                engine = create_engine(ruta)
+                print(name)
+            elif config_class == 'cloud':
+                engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
                 
                 name = 'Postgresql_cloud'
                 print(name)

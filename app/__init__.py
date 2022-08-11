@@ -39,6 +39,10 @@ def create_app(config_class):
     mail.init_app(app)
     #CORS(app, support_credentials=True)
     
+    # configuración base de datos
+    from app.database.setup import create_tables
+    create_tables(app=app, db=db, config_class=config_class)
+    
     from app.models.models import User
 
     @login_manager.user_loader
@@ -58,9 +62,7 @@ def create_app(config_class):
     app.register_blueprint(blue_comments)
     app.register_blueprint(blue_dashboard)
     
-    # configuración base de datos
-    from app.database.setup import create_tables
-    create_tables(app=app, db=db)
+    
     # plantilla de error para las ruta que no existen
     @app.errorhandler(404)
     def page_not_found(error):

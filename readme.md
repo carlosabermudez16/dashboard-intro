@@ -9,3 +9,4 @@ flask run
 
 despliegue:
 heroku login
+heroku git:remote -a dashboard-intro

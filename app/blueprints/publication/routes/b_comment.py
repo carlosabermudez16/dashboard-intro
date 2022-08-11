@@ -19,12 +19,13 @@ def token_required(f):
         
         try:
             cookie = request.headers['Cookie']
-            token = cookie[6:158] if 'token' in cookie else None
-            #username = current_user.username
-            #print(f'username: {username}')
+            cookie = cookie.split(sep=';')
+            token = [valor for valor in cookie if 'token' in valor][0]
+            token = [tuple(token.split(sep='='))]
+            token = dict(token)
+            token = token['token']
         except:
             token = None
-            #username = None
             
         #token = get_token.get_token(username=username)
         #print(token, type(token))

@@ -57,10 +57,13 @@ def create_app(config_class):
     from app.blueprints.publication import blue_comments
     from app.blueprints.dashboard import blue_dashboard
     app.register_blueprint(blue_home)
-    app.register_blueprint(blue_api)
     app.register_blueprint(blue_rg)
-    app.register_blueprint(blue_comments)
     app.register_blueprint(blue_dashboard)
+    app.register_blueprint(blue_comments)
+    app.register_blueprint(blue_api)
+    
+    
+    
     
     
     # plantilla de error para las ruta que no existen

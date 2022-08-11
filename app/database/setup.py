@@ -15,24 +15,33 @@ def ruta_databse(entrypoint):
 def create_tables(app,db):
     
     valor = app.config['SQLALCHEMY_DATABASE_URI']
+    print(valor, len(valor))
     
     try:
         with app.app_context():  # me permite sicronizar la base de datos con la aplicación
-            if 'mysql' in valor:
+            if len(valor) == 59:
                 from config.config import ProductionConfig
                 ruta = ruta_databse(entrypoint=ProductionConfig)
                 print(ruta)
                 engine = create_engine(ruta)
                 
                 name = 'Mysql'
-                print(name)
-            else:
+                #print(name)
+            elif len(valor) == 52:
                 from config.config import DevelopmentConfig
                 ruta = ruta_databse(entrypoint=DevelopmentConfig)
                 print(ruta)
                 engine = create_engine(ruta)
                 
                 name = 'Postgresql'
+                #print(name)
+            elif len(valor) == 155:
+                from config.config import CloudDev
+                ruta = ruta_databse(entrypoint=CloudDev)
+                #print(ruta)
+                engine = create_engine(ruta)
+                
+                name = 'Postgresql_cloud'
                 print(name)
                 
             print(f"\nConexión a base de datos {name} exitosa!")

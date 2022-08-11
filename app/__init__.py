@@ -5,7 +5,7 @@ from flask_wtf import CSRFProtect
 from flask_login import LoginManager
 from flask_mail import Mail
 
-from config.config import DevelopmentConfig, ProductionConfig
+from config.config import DevelopmentConfig, ProductionConfig, CloudDev
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -17,11 +17,19 @@ def create_app(config_class):
     app = Flask(__name__, template_folder='templates')
     
     
-    
-    configuration = ProductionConfig if config_class !='dev' and config_class == 'prod' else DevelopmentConfig
+    try:
+        if config_class == 'prod':
+            configuration = ProductionConfig
+            
+        elif  config_class == 'dev':
+            configuration = DevelopmentConfig
+        elif config_class == 'cloud':
+            configuration = CloudDev
+    except:
+        print('hubo un error en la configuración')
+
     app.config.from_object(configuration)
-    
-    
+
     login_manager.session_protection = "strong"
     login_manager.login_view = 'rg.loggin'
     login_manager.init_app(app)

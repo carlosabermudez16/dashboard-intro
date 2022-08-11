@@ -44,8 +44,20 @@ class DevelopmentConfig(Config):
     password = os.getenv("PASSWORD2")
     port = os.getenv("PORT2")
     driver = os.getenv("DRIVER2")
-    SQLALCHEMY_DATABASE_URI = f'{driver}://{user}:{password}@{host}/{database}'
+    SQLALCHEMY_DATABASE_URI = f'{driver}://{user}:{password}@{host}:{port}/{database}'
     #SQLALCHEMY_DATABASE_URI = f'postgresql://postgres:123456@localhost:5432/flask_CF'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    DEBUG = False
+
+class CloudDev(Config):
+    
+    host = os.getenv("HOST_CLOUD")
+    database = os.getenv("DATABASE_CLOUD") 
+    user = os.getenv("USER_CLOUD")
+    password = os.getenv("PASSWORD_CLOUD")
+    port = os.getenv("PORT_CLOUD")
+    driver = os.getenv("DRIVER_CLOUD")
+    SQLALCHEMY_DATABASE_URI = f'{driver}://{user}:{password}@{host}:{port}/{database}'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = False
     
@@ -57,7 +69,7 @@ class ProductionConfig(Config):
     password = os.getenv("PASSWORD")
     port = os.getenv("PORT")
     driver = os.getenv("DRIVER")
-    SQLALCHEMY_DATABASE_URI = f'{driver}://{user}:{password}@{host}/{database}'
+    SQLALCHEMY_DATABASE_URI = f'{driver}://{user}:{password}@{host}:{port}/{database}'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     DEBUG = False    

@@ -23,7 +23,10 @@ def token_required(f):
             token = [valor for valor in cookie if 'token' in valor][0]
             token = [tuple(token.split(sep='='))]
             token = dict(token)
-            token = token[' token']
+            try:
+                token = token[' token']
+            except:
+                token = token['token']
         except:
             token = None
             

@@ -1,11 +1,11 @@
-version: '1'
+version: "3.8"
 
 services:
   db:
-    image: postgres:14-alpine
+    image: postgres
     restart: always
     volumes:
-      -postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./database.env
     ports:
@@ -21,16 +21,6 @@ services:
     depends_on:
       - db
 
-  website:
-    restart: always
-    build: ./web
-    ports:
-      - 5000:80
-    depends_on:
-      - db
-    links:
-      - db
-    container_name: website
 
 volumes:
   postgres_data:

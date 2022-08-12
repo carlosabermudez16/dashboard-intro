@@ -1,0 +1,37 @@
+version: '1'
+
+services:
+  db:
+    image: postgres:14-alpine
+    restart: always
+    volumes:
+      -postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./database.env
+    ports:
+      - "5432:5432"
+    container_name: postgres_database
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    env_file:
+      - ./pgadmin.env
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+
+  website:
+    restart: always
+    build: ./web
+    ports:
+      - 5000:80
+    depends_on:
+      - db
+    links:
+      - db
+    container_name: website
+
+volumes:
+  postgres_data:
+    

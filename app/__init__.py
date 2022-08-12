@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS, cross_origin
+#from flask_cors import CORS, cross_origin
 from flask_migrate import Migrate
 from flask_wtf import CSRFProtect
 from flask_login import LoginManager
@@ -8,7 +8,7 @@ from flask_mail import Mail
 
 from config.config import DevelopmentConfig, ProductionConfig, CloudDev
 
-Cors = CORS()
+#Cors = CORS()
 db = SQLAlchemy()
 migrate = Migrate()
 csrf = CSRFProtect()
@@ -32,9 +32,9 @@ def create_app(config_class):
 
     app.config.from_object(configuration)
     
-    Cors.init_app(app)
-    CORS(app, resources={r'/services_api_public/': {'origins': 'http://localhost:8080'}}, CORS_SUPPORTS_CREDENTIALS = True)
-    app.config['CORS_HEADERS'] = 'Content-Type'
+#    Cors.init_app(app)
+#    CORS(app, resources={r'/services_api_public/': {'origins': 'http://localhost:8080'}}, CORS_SUPPORTS_CREDENTIALS = True)
+#    app.config['CORS_HEADERS'] = 'Content-Type'
 
 
     login_manager.session_protection = "strong"

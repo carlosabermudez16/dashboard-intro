@@ -1,5 +1,4 @@
 from datetime import datetime
-from enum import unique
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 from sqlalchemy import Column, String, Integer, Text
@@ -15,7 +14,7 @@ class User(UserMixin, db.Model):
     email = Column(String(40), unique = True)
     password = Column(Text)
     public_id = Column(String(50))
-    #tokens_jwt = Column(Text)
+    rol = Column(String(15))
     comments = relationship('Comment', cascade="delete,merge")
     created_date = Column(DateTime, default = datetime.now)
     confirmed = Column(Boolean, nullable=False, default=False)

@@ -18,11 +18,16 @@ def token_required(f):
     def decorator(*args, **kwargs):
         
         try:
+            # opción 1 usando cookie
             cookie = request.headers['Cookie']
             cookie = cookie.split(sep=';')
             token = [valor for valor in cookie if 'token' in valor][0]
             token = [tuple(token.split(sep='='))]
             token = dict(token)
+            
+            # opción 2 usando session
+            #from flask import session
+            #token = session['token']
             try:
                 token = token[' token']
             except:
@@ -43,15 +48,15 @@ def token_required(f):
             print(usuario)
         except exceptions.DecodeError as e:
             return jsonify({'message': f'el token es invalido {e}'})
-
+        
         return f(usuario,*args, **kwargs)
         
     return decorator
 
 
-@blue_comments.route('/publication',methods = ['GET'])
+@blue_comments.route('/Publicaciones',methods = ['GET'])
 @token_required
-def publication(usuario):
+def publication_noapi(usuario):
     return render_template('publication.html', comments = comments.get_comment(), date_format = date_format)
 
 

@@ -1,3 +1,8 @@
+
+vue init webpack frontend
+npm install axios --save
+npm install bootstrap-vue --save
+
 pip freeze > requirements.txt
 
 flask run --cert=adhoc --> para https

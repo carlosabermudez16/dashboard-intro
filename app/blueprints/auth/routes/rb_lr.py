@@ -136,17 +136,20 @@ def loggin():
             #agregaoms un token en la cookie
             response = make_response(redirect(next_page))
             
-            #from app.controllers.queries.querys import add_token
             import jwt
             
             token = jwt.encode(payload={'tokens_jwt': user.public_id}, 
                                 key= os.getenv("SECRET_KEY"),
                                 algorithm="HS256")
             token.encode("UTF-8")
-              
-            #add_token.save_token(username=username, token=token)
             
+            # forma 1 usando cookie
             response.set_cookie('token', token)
+            
+            # forma 2 usnaod sesión
+            #from flask import session
+            #session['token'] = token
+            
             
             return response
         else:
@@ -159,8 +162,16 @@ def loggin():
 def logout():
     
     logout_user()
+    
+    # forma 1 usando cookie
     response = make_response(redirect(url_for('rg.loggin')))  
     response.set_cookie('token',value='',expires=0)
+    
+    # fomra 2 usando session
+    #from flask import session
+    #if 'token' in session:
+    #    session.pop('token')
+    
     return response
 
 # Forget the password

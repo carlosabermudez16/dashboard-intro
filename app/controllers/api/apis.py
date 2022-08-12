@@ -1,8 +1,12 @@
 
 from app.controllers.queries.querys import comments
-from flask import jsonify
+from flask import jsonify,render_template
 from app.controllers.api import blue_api
 
+@blue_api.route('/', defaults = {'path': ''})
+@blue_api.route('/<path:path>')
+def render_vue(path):
+    return render_template("index.html")
 
 @blue_api.route('/services_api_public/v1/publications',methods = ['GET'])
 def api_publication():

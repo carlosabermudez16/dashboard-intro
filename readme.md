@@ -19,5 +19,5 @@ heroku git:remote -a dashboard-intro
 git push heroku main
 heroku logs --tail
 ----------------------------------------
-usando docker
+
 

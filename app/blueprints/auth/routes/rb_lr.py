@@ -77,16 +77,18 @@ def register():
                                                 public_id = public_id
                                                 )
            
-            # ENVÍO DE CORREO
-            @copy_current_request_context
-            def send_message(email, username):
-                send_email(email, username)
+            try:
+                # ENVÍO DE CORREO
+                @copy_current_request_context
+                def send_message(email, username):
+                    send_email(email, username)
 
-            sender = Thread(name = 'mail_sender', target = send_message,
-                            args=(user.email,user.username))
-            sender.start()
-            # FIN ENVÍO DE CORREO
-
+                sender = Thread(name = 'mail_sender', target = send_message,
+                                args=(user.email,user.username))
+                sender.start()
+                # FIN ENVÍO DE CORREO
+            except:
+                print('Algo salio mal en el envío del correo')
             #login_user(user, remember=True)
             next_page = request.args.get('next', None)
             if not next_page or url_parse(next_page).netloc != '':

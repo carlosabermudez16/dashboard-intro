@@ -4,7 +4,8 @@ from flask import current_app, render_template, url_for
 from app import mail
 
 from .token import generate_confirmation_token
-
+import os
+ruta = os.getcwd()
 def send_email(user_email,username):
     token = generate_confirmation_token(user_email)
     confirm_url = url_for('rg.confirm_email', token=token, _external=True)
@@ -14,7 +15,9 @@ def send_email(user_email,username):
                   sender = current_app.config['MAIL_USERNAME'],
                   recipients= [user_email])
             msg.html = render_template('email.html', username = username, confirm_url=confirm_url)
-            
+            with current_app.open_resource(ruta+'\\app\\static\\img\\drones_01.jpg') as dron:
+                msg.attach('drones_01.jpg','image/jpeg', dron.read())
+                
             mail.send(msg)
         except SMTPException:
             # logger.exception("Ocurrió un error al enviar el correo")

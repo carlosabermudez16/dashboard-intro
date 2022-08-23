@@ -15,6 +15,7 @@ csrf = CSRFProtect()
 login_manager = LoginManager()
 mail = Mail()
 
+
 def create_app(config_class):
     app = Flask(__name__,static_folder = 'static', template_folder = 'templates')
     
@@ -44,6 +45,7 @@ def create_app(config_class):
     db.init_app(app)
     migrate.init_app(app,db)
     mail.init_app(app)
+    
     
     # configuración base de datos
     from app.database.setup import create_tables

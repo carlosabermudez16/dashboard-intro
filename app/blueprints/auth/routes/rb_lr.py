@@ -250,3 +250,24 @@ def delete(id):
     
     
     return redirect(url_for('blue_dashboard.dashboard'))
+
+
+# usando redis
+from redis import Redis
+rds = Redis(host="localhost", port="6379")
+
+@blue_rg.route('/crear_nombre', methods=["GET"])
+def nombre():
+    result = {"nombre":"Carlos"}
+    rds.mset(result)
+    return {"Respuesta":"Exitoso OK"}
+
+@blue_rg.route('/retornar_nombre',methods=["GET"])
+def return_nombre():
+    dato = rds.get("nombre").decode('utf-8')
+    print(dato,type(dato))
+    
+    
+    return {"Respuesta":dato}
+
+

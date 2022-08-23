@@ -49,9 +49,26 @@
                 </script>
             </div>
 
+
         </div>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-4" style="background-color: darkgray;">
+                    <h4><b> Descargar archivo csv</b> </h4>
+                    <a href="{{ url_for('blue_dashboard.download') }}"><b> Download </b></a>
+                </div>
+                <div class="col-4">
+                    <h4><b>Cargar archivo</b></h4>
+                    <form action="{{ url_for('blue_dashboard.upload') }}" method="POST", enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-
+                        <input type="file" name="uploadFile" id="uploadFile" accept=".jpg .png"><br>
+                        <input type="submit" value="Enviar">
+                    </form>
+                </div>
+            </div>
+        </div>
         
     </section>
 

@@ -2,10 +2,10 @@ from app.controllers.routes import bp_rutas_all
 
 from flask import render_template
 
-@bp_rutas_all.route('/', defaults = {'path': ''})
-@bp_rutas_all.route('/<path:path>')
-def render_vue(path):
-    return render_template("index.html")
+#@bp_rutas_all.route('/', defaults = {'path': ''})
+#@bp_rutas_all.route('/<path:path>')
+#def render_vue(path):
+#    return render_template("index.html")
 
 
 #"""-------------- RUTAS PÚBLICAS --------------"""

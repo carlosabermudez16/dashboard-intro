@@ -251,7 +251,6 @@ def delete(id):
     
     return redirect(url_for('blue_dashboard.dashboard'))
 
-
 # usando redis
 from redis import Redis
 rds = Redis(host="localhost", port="6379")

@@ -11,3 +11,7 @@ def home():
         username = current_user.username
         print(username)
     return render_template('home.html')
+
+@blue_home.route('/portal',methods = ['GET'])
+def portal():
+    return render_template('portal.html')

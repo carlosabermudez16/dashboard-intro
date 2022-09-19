@@ -20,24 +20,29 @@ def token_required(f):
         try:
             # opción 1 usando cookie
             cookie = request.headers['Cookie']
+            #print('--'*30)
+            #print(cookie)
             cookie = cookie.split(sep=';')
-            token = [valor for valor in cookie if 'token' in valor][0]
-            token = [tuple(token.split(sep='='))]
+            #print(cookie)
+            token = [valor for valor in cookie if 'token' in valor and valor.startswith(' token')][0]
+            #print(token)
+            token = [tuple(token.strip().split(sep='='))]
+            #print(token)
             token = dict(token)
-            
+            #print(token)
+            #print('--'*30)
             # opción 2 usando session
             #from flask import session
             #token = session['token']
-            try:
-                token = token[' token']
-            except:
-                token = token['token']
+            
+            token = token['token']
+            
         except:
             token = None
             
         #token = get_token.get_token(username=username)
         #print(token, type(token))
-        
+        print(token)
         if not token:
             return jsonify({'message': 'No estás autorizado'})
 
